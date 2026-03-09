@@ -43,7 +43,7 @@ module.exports.dynrelmap = function (parent) {
             p10MCRouter(nodeId,'custom',targetPort, targetIp, 0)
         };
 
-        targetArea.appendChild(btn);
+        targetArea.appendChild(anchor);
     };
     
     return obj;

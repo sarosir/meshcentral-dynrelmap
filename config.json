@@ -6,9 +6,9 @@
   "description": "-",
   "hasAdminPanel": false,
   "homepage": "https://github.com/sarosir/meshcentral-dynrelmap",
-  "changelogUrl": "https://github.com/sarosir/meshcentral-dynrelmap/master/changelog.md",
-  "configUrl": "https://github.com/sarosir/meshcentral-dynrelmap/master/config.json",
-  "downloadUrl": "https://github.com/sarosir/meshcentral-dynrelmap/archive/master.zip",
+  "changelogUrl": "https://github.com/sarosir/meshcentral-dynrelmap/main/changelog.md",
+  "configUrl": "https://github.com/sarosir/meshcentral-dynrelmap/main/config.json",
+  "downloadUrl": "https://github.com/sarosir/meshcentral-dynrelmap/archive/main.zip",
   "repository": {
     "type": "git",
     "url": "https://github.com/sarosir/meshcentral-dynrelmap.git"

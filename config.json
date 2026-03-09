@@ -3,7 +3,7 @@
   "shortName": "dynrelmap",
   "version": "0.0.1",
   "author": "Robert Sarosi",
-  "description": "-",
+  "description": "This is a description.",
   "hasAdminPanel": false,
   "homepage": "https://github.com/sarosir/meshcentral-dynrelmap",
   "changelogUrl": "https://raw.githubusercontent.com/sarosir/meshcentral-dynrelmap/main/changelog.md",

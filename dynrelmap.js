@@ -1,7 +1,7 @@
 /**
 * @description MeshCentral Dynamic Relay Mapper
-* @author sarosir
-* @version v0.0.1
+* @author YourName
+* @version v1.0.2
 */
 
 "use strict";
@@ -10,43 +10,49 @@ function MeshServerSide_dynrelmap(parent) {
     var obj = {};
     obj.parent = parent;
 
-    // This hook triggers when the device details page is loaded
+    // This is a more aggressive way to ensure the button is added
     obj.onDeviceRefresh = function(node) {
-        var btnId = 'dynrelmap_btn';
-        if (document.getElementById(btnId)) return;
+        console.log("DynRelMap: Refreshing for node " + node._id); // Debug log
 
-        // Find the "Action" buttons container in the MeshCentral UI
-        var actionButtons = document.getElementById('p11_details'); 
-        if (!actionButtons) return;
+        // 1. Prevent duplicates
+        if (document.getElementById('dynrelmap_btn')) return;
 
-        // Create the UI Button
+        // 2. Try multiple possible container IDs used by MeshCentral
+        var targetArea = document.getElementById('p11_details') || 
+                         document.getElementById('p11_actions') || 
+                         document.getElementById('p11_info');
+
+        if (!targetArea) {
+            console.error("DynRelMap: Could not find a UI container to attach to.");
+            return;
+        }
+
+        // 3. Create the UI Button
         var btn = document.createElement('button');
-        btn.id = btnId;
+        btn.id = 'dynrelmap_btn';
         btn.innerText = "🔗 Dynamic Router";
         btn.className = "white-button"; 
-        btn.style.margin = "5px 0px";
+        btn.style.marginTop = "10px";
         btn.style.width = "100%";
+        btn.style.backgroundColor = "#e1f5fe"; // Light blue to make it stand out
 
         btn.onclick = function() {
             var targetIp = prompt("Enter Target Internal IP:", "127.0.0.1");
             if (!targetIp) return;
             
             var targetPort = prompt("Enter Target Port:", "80");
-            if (!targetPort || isNaN(targetPort)) {
-                alert("Please enter a valid port number.");
-                return;
-            }
+            if (!targetPort || isNaN(targetPort)) return;
 
-            // Protocol: mc-router://[server]/[nodeid]/[remoteip]/[remoteport]
             var serverHost = window.location.host;
+            // The protocol MeshCentral Router expects
             var protocolUrl = "mc-router://" + serverHost + "/" + node._id + "/" + targetIp + "/" + targetPort;
 
-            // Execute the protocol handler
+            console.log("DynRelMap: Launching " + protocolUrl);
             window.location.href = protocolUrl;
         };
 
-        // Insert the button into the UI
-        actionButtons.appendChild(btn);
+        // 4. Inject
+        targetArea.appendChild(btn);
     };
 
     return obj;

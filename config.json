@@ -1,0 +1,18 @@
+{
+  "name": "DynamicRelayMap",
+  "shortName": "dynrelmap",
+  "version": "0.0.1",
+  "author": "Robert Sarosi",
+  "description": "-",
+  "hasAdminPanel": false,
+  "homepage": "https://github.com/sarosir/meshcentral-dynrelmap",
+  "changelogUrl": "https://github.com/sarosir/meshcentral-dynrelmap/master/changelog.md",
+  "configUrl": "https://github.com/sarosir/meshcentral-dynrelmap/master/config.json",
+  "downloadUrl": "https://github.com/sarosir/meshcentral-dynrelmap/archive/master.zip",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sarosir/meshcentral-dynrelmap.git"
+  },
+  "versionHistoryUrl": "",
+  "meshCentralCompat": ">=1.1.35"
+}

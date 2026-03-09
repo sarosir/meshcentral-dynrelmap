@@ -15,30 +15,32 @@ module.exports.dynrelmap = function (parent) {
     ];
     
     obj.onDeviceRefreshEnd = function() {
-        if (document.getElementById('dynrelmap_btn')) return;
+        if (document.getElementById('dynrelmap_anchor')) return;
 
         // Try to find the panel
-        var targetArea = document.getElementById('p11_details') || document.getElementById('p11_actions');
-        if (!targetArea) return;
+        var targetArea = document.getElementById('p10html3left');
+        if (!targetArea){
+            console.log('missing target area!');
+            return;
+        }
 
-        var btn = document.createElement('button');
-        btn.id = 'dynrelmap_btn';
-        btn.innerText = "⚡ Open Dynamic Relay";
-        btn.className = "white-button";
-        btn.style.marginTop = "10px";
-        btn.style.width = "100%";
+        var anchor = document.createElement('a');
+        anchor.id = 'dynrelmap_anchor';
+        anchor.innerText = "⚡ Open Dynamic Relay";
+        anchor.href="#"
 
-        btn.onclick = function() {
+        anchor.onclick = function() {
             var targetIp = prompt("Enter Target Internal IP:", "127.0.0.1");
             if (!targetIp) return;
             
             var targetPort = prompt("Enter Target Port:", "80");
             if (!targetPort || isNaN(targetPort)) return;
 
-            var serverUrl = window.location.host;
-            var meshRouterUrl = "mc-router://" + serverUrl + "/" + node._id + "/" + targetIp + "/" + targetPort;
-            
-            window.location.href = meshRouterUrl;
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const nodeId = urlParams.get('gotonode');
+
+            p10MCRouter(nodeId,'custom',targetPort, targetIp, 0)
         };
 
         targetArea.appendChild(btn);

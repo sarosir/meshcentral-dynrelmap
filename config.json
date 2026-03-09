@@ -13,6 +13,5 @@
     "type": "git",
     "url": "https://github.com/sarosir/meshcentral-dynrelmap.git"
   },
-  "versionHistoryUrl": "",
   "meshCentralCompat": ">=1.1.35"
 }

@@ -18,7 +18,7 @@ module.exports.dynrelmap = function (parent) {
         if (document.getElementById('dynrelmap_anchor')) return;
 
         // Try to find the panel
-        var targetArea = document.getElementById('p10html3left');
+        var targetArea = document.getElementsByClassName('p10html3left')[0];
         if (!targetArea){
             console.log('missing target area!');
             return;

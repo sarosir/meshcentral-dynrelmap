@@ -1,7 +1,7 @@
 /**
 * @description MeshCentral Dynamic Relay Mapper
 * @author YourName
-* @version v1.0.2
+* @version v1.0.4
 */
 
 "use strict";
@@ -10,49 +10,45 @@ function MeshServerSide_dynrelmap(parent) {
     var obj = {};
     obj.parent = parent;
 
-    // This is a more aggressive way to ensure the button is added
-    obj.onDeviceRefresh = function(node) {
-        console.log("DynRelMap: Refreshing for node " + node._id); // Debug log
+    // Official hook called when a device page is finished loading
+    obj.onDeviceRefreshEnd = function() {
+        if (typeof parent.currentActiveDevice !== 'object') return;
+        var node = parent.currentActiveDevice;
+        
+        // Add the button
+        obj.addButton(node);
+    };
 
-        // 1. Prevent duplicates
-        if (document.getElementById('dynrelmap_btn')) return;
+    obj.addButton = function(node) {
+        var btnId = 'dynrelmap_btn';
+        if (document.getElementById(btnId)) return;
 
-        // 2. Try multiple possible container IDs used by MeshCentral
-        var targetArea = document.getElementById('p11_details') || 
-                         document.getElementById('p11_actions') || 
-                         document.getElementById('p11_info');
+        // Try to find the details panel or the action buttons area
+        var target = document.getElementById('p11_details') || document.getElementById('p11_actions');
+        if (!target) return;
 
-        if (!targetArea) {
-            console.error("DynRelMap: Could not find a UI container to attach to.");
-            return;
-        }
-
-        // 3. Create the UI Button
         var btn = document.createElement('button');
-        btn.id = 'dynrelmap_btn';
-        btn.innerText = "🔗 Dynamic Router";
-        btn.className = "white-button"; 
-        btn.style.marginTop = "10px";
-        btn.style.width = "100%";
-        btn.style.backgroundColor = "#e1f5fe"; // Light blue to make it stand out
+        btn.id = btnId;
+        btn.innerHTML = '<b>🔗 Dynamic Router</b>';
+        btn.className = 'white-button'; // MeshCentral standard class
+        btn.style.marginTop = '10px';
+        btn.style.width = '100%';
 
         btn.onclick = function() {
-            var targetIp = prompt("Enter Target Internal IP:", "127.0.0.1");
-            if (!targetIp) return;
+            var ip = prompt("Enter Target Internal IP:", "127.0.0.1");
+            if (!ip) return;
+            var port = prompt("Enter Target Port:", "80");
+            if (!port || isNaN(port)) return;
+
+            // Construct mc-router protocol
+            var url = "mc-router://" + window.location.host + "/" + node._id + "/" + ip + "/" + port;
             
-            var targetPort = prompt("Enter Target Port:", "80");
-            if (!targetPort || isNaN(targetPort)) return;
-
-            var serverHost = window.location.host;
-            // The protocol MeshCentral Router expects
-            var protocolUrl = "mc-router://" + serverHost + "/" + node._id + "/" + targetIp + "/" + targetPort;
-
-            console.log("DynRelMap: Launching " + protocolUrl);
-            window.location.href = protocolUrl;
+            // Log to console for debugging
+            console.log("DynRelMap: Opening " + url);
+            window.location.href = url;
         };
 
-        // 4. Inject
-        targetArea.appendChild(btn);
+        target.appendChild(btn);
     };
 
     return obj;

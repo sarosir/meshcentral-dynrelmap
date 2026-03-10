@@ -36,9 +36,12 @@ module.exports.dynrelmap = function (parent) {
             var targetPort = prompt("Enter Target Port:", "80");
             if (!targetPort || isNaN(targetPort)) return;
 
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const nodeId = urlParams.get('gotonode');
+            var queryString = window.location.search;
+            console.log(queryString);
+            var urlParams = new URLSearchParams(queryString);
+            console.log(urlParams);
+            var nodeId = urlParams.get('gotonode');
+            console.log(nodeId);
 
             p10MCRouter(nodeId,'custom',targetPort, targetIp, 0)
         };

@@ -1,7 +1,7 @@
 {
   "name": "DynamicRelayMap",
   "shortName": "dynrelmap",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Robert Sarosi",
   "description": "This is a description.",
   "hasAdminPanel": false,

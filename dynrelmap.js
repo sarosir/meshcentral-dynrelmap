@@ -1,5 +1,5 @@
 /** 
-* @description MeshCentral DynamixRelayMap
+* @description MeshCentral DynamicRelayMap
 * @author Robert Sarosi
 * @copyright 
 * @license Apache-2.0
@@ -17,7 +17,6 @@ module.exports.dynrelmap = function (parent) {
     obj.onDeviceRefreshEnd = function() {
         if (document.getElementById('dynrelmap_anchor')) return;
 
-        // Try to find the panel
         var targetArea = document.getElementsByClassName('p10html3left')[0];
         if (!targetArea){
             console.log('missing target area!');
@@ -26,7 +25,7 @@ module.exports.dynrelmap = function (parent) {
 
         var anchor = document.createElement('a');
         anchor.id = 'dynrelmap_anchor';
-        anchor.innerText = "⚡ Open Dynamic Relay";
+        anchor.innerText = "Dynamic Relay Map ⚡";
         anchor.href="#"
 
         anchor.onclick = function() {
@@ -37,13 +36,10 @@ module.exports.dynrelmap = function (parent) {
             if (!targetPort || isNaN(targetPort)) return;
 
             var queryString = window.location.search;
-            console.log(queryString);
             var urlParams = new URLSearchParams(queryString);
-            console.log(urlParams);
             var nodeId = urlParams.get('gotonode');
-            console.log(nodeId);
 
-            p10MCRouter(nodeId,'custom',targetPort, targetIp, 0)
+            p10MCRouter("node//"+nodeId,'custom',targetPort, targetIp, 0)
         };
 
         targetArea.appendChild(anchor);

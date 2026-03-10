@@ -1,9 +1,9 @@
 {
   "name": "DynamicRelayMap",
   "shortName": "dynrelmap",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "author": "Robert Sarosi",
-  "description": "This is a description.",
+  "description": "Adds an an extra 'extralink', that enables making a custom relay map in the router with prompted ip and port.",
   "hasAdminPanel": false,
   "homepage": "https://github.com/sarosir/meshcentral-dynrelmap",
   "changelogUrl": "https://raw.githubusercontent.com/sarosir/meshcentral-dynrelmap/main/changelog.md",

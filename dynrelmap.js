@@ -15,11 +15,11 @@ module.exports.dynrelmap = function (parent) {
     ];
     
     obj.onDeviceRefreshEnd = function() {
-        if (document.getElementById('dynrelmap_anchor')) return;
+        if (document.getElementById('dynrelmap_anchor')){ return; }
 
         var targetArea = document.getElementsByClassName('p10html3left')[0];
         if (!targetArea){
-            console.log('missing target area!');
+            console.log('Dynrelmap: Missing target area!');
             return;
         }
 
